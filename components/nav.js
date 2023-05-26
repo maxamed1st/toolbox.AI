@@ -1,7 +1,7 @@
 import Link from "next/link"
 export default function Nav() {
     return (
-    <nav className="[&>li]:list-none flex divide-x mt-2 w-full bg-lime-800 text-gray-200 rounded-t h-8">
+    <nav className="[&>li]:list-none flex divide-x mt-2 w-full bg-lime-800 text-gray-200 rounded-t h-8 overflow-auto">
         <li className="mr-auto h-full hover:bg-lime-600 hover:text-white hover:rounded-tl px-2 py-1 border-r">
             <Link href="/" className="align-center"> Toolbox.AI </Link>
         </li>
