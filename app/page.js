@@ -1,7 +1,6 @@
-export default function Home() {
+import Toolbox from "@/components/toolbox"
+export default async function Home() {
   return (
-    <main>
-      <h1>Hello World</h1>
-    </main>
+    <Toolbox />
   )
 }

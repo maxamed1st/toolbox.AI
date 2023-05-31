@@ -1,9 +1,9 @@
 export default function Tool({title, description, category}) {
     return (
-    <article className=" bg-gray-200 flex flex-col justify-between md:w-1/3 p-1 rounded hover:scale-105 overflow-auto cursor-pointer">
-        <div className="text-2xl font-bold">{title}</div>
+    <article className=" bg-gray-200 flex flex-col justify-between h-32 p-2 rounded overflow-hidden hover:scale-95 hover:ease-in-out cursor-pointer">
+        <div className="text-lg font-bold">{title}</div>
+        <div className="text-xs -mt-1">{category}</div>
         <div>{description}</div>
-        <div className="self-end">{category}</div>
     </article>
     )
 }
