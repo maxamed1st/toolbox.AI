@@ -19,15 +19,6 @@ const db = getFirestore(app);
 //initiate emolutor
 connectFirestoreEmulator(db, "localhost", "5000");
 
-//get a specific collection
-export default async function getCollection(title="tools") {
-    const snapshot = await getDocs(collection(db, "tools"));
-    const documents = snapshot.docs;
-    const data = documents.map(t => (t.data()));
-    //return data
-    return data;
-}
-
 //create a new document in tools
 export async function setDocument(reference, data, collection = "tools") {
     try {
@@ -42,11 +33,10 @@ export async function setDocument(reference, data, collection = "tools") {
 }
 
 //Get sorted documents
-export async function sortDocs(reference="tools", filter="category") {
+export async function getDocs(reference="tools", filter="name") {
     //get snapshot of the data
     const colRef = collection(db, reference);
-    const q = filter === "category" ? query(colRef, orderBy("category")) : 
-        query(colRef, orderBy("title"));
+    const q = query(colRef, orderBy(filter));
     const snapshot = await getDocs(q);
     const documents = snapshot.docs;
     const sorted = documents.map(d => d.data());
