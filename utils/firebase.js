@@ -33,7 +33,7 @@ export async function setDocument(reference, data, collection = "tools") {
 }
 
 //Get sorted documents
-export async function getDocs(reference="tools", filter="name") {
+export async function getData(reference="tools", filter="title") {
     //get snapshot of the data
     const colRef = collection(db, reference);
     const q = query(colRef, orderBy(filter));
@@ -41,4 +41,12 @@ export async function getDocs(reference="tools", filter="name") {
     const documents = snapshot.docs;
     const sorted = documents.map(d => d.data());
     return sorted;
+}
+//Extract Data from data.json
+export async function populateDB() {
+    //Add each tool in tools to the database
+    for (const k in tools) {
+        await setDocument(k, tools[k]);
+    }
+
 }
