@@ -1,6 +1,6 @@
 // import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, setDoc, doc, collection, connectFirestoreEmulator } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, doc, collection, connectFirestoreEmulator, query, orderBy } from 'firebase/firestore';
 //firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDDRxuZqR9AWHYnADGqO40oA2qafs-oGQY",
@@ -39,4 +39,16 @@ export async function setDocument(reference, data, collection = "tools") {
     } catch (e) {
         return e
     }
+}
+
+//Get sorted documents
+export async function sortDocs(reference="tools", filter="category") {
+    //get snapshot of the data
+    const colRef = collection(db, reference);
+    const q = filter === "category" ? query(colRef, orderBy("category")) : 
+        query(colRef, orderBy("title"));
+    const snapshot = await getDocs(q);
+    const documents = snapshot.docs;
+    const sorted = documents.map(d => d.data());
+    return sorted;
 }
