@@ -1,6 +1,6 @@
 // import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, setDoc, doc, collection, connectFirestoreEmulator, query, orderBy } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, doc, collection, connectFirestoreEmulator, query, orderBy, getDoc } from 'firebase/firestore';
 //firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDDRxuZqR9AWHYnADGqO40oA2qafs-oGQY",
@@ -39,14 +39,17 @@ export async function getData(reference="tools", filter="title") {
     const q = query(colRef, orderBy(filter));
     const snapshot = await getDocs(q);
     const documents = snapshot.docs;
-    const sorted = documents.map(d => d.data());
+    const sorted = documents.map(d => {
+        const id = d.id;
+        const data = d.data()
+        return [id, data];
+    });
     return sorted;
 }
-//Extract Data from data.json
-export async function populateDB() {
-    //Add each tool in tools to the database
-    for (const k in tools) {
-        await setDocument(k, tools[k]);
-    }
-
+//Get a specific document
+export async function getDocument(title) {
+    const docRef = doc(db,"tools", title);
+    const snapshot = await getDoc(docRef);
+    const document = snapshot.data();
+    return document;
 }
