@@ -2,7 +2,7 @@
 import Tool from "./tool"
 import { sortContext } from "@/utils/context";
 import { useState, useEffect, useContext } from "react"
-import { sortDocs } from "@/utils/firebase";
+import { getData as getFromDB } from "@/utils/firebase";
 
 export default function Toolbox() {
     const [tool, setTool] = useState([]);
@@ -11,7 +11,7 @@ export default function Toolbox() {
     useEffect(() => {
         async function getData() {
             //Get the tools as a list of document objects
-            const data = await sortDocs("tools", sortBy);
+            const data = await getFromDB("tools", sortBy);
             //update the state with the tools
             setTool(data);
         }
@@ -26,9 +26,10 @@ export default function Toolbox() {
                 return (
                     <Tool 
                     key = {i}
-                    title = {t.title} 
-                    description = {t.description} 
-                    category = {t.category} 
+                    id = {t[0]}
+                    title = {t[1].title} 
+                    description = {t[1].shortDescription} 
+                    category = {t[1].category}
                     />
                 )
             })}
