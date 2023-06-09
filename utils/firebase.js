@@ -1,6 +1,6 @@
 // import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, setDoc, doc, collection, connectFirestoreEmulator, query, orderBy, getDoc } from 'firebase/firestore';
+import { getFirestore, getDocs, setDoc, doc, collection, query, orderBy, getDoc } from 'firebase/firestore';
 //firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDDRxuZqR9AWHYnADGqO40oA2qafs-oGQY",
@@ -16,8 +16,6 @@ const app = initializeApp(firebaseConfig);
 
 //Get a Firestore instance for storage
 const db = getFirestore(app);
-//initiate emolutor
-connectFirestoreEmulator(db, "localhost", "5000");
 
 //create a new document in tools
 export async function setDocument(reference, data, collection = "tools") {
