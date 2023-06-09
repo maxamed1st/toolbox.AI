@@ -48,6 +48,8 @@ jobs:
     runs-on: macOS-latest
     needs: build
     steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v3.0.6
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2.0.1
