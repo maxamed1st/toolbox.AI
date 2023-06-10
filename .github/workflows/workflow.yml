@@ -39,19 +39,20 @@ jobs:
         run: npm install
       - name: Build with Next.js
         run: npm run build
-      - name: Deploy with gh-pages
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
   # Deployment job
   # deploy:
   #   environment:
   #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
+  #     url: s{{ steps.deployment.outputs.page_url }}
   #   runs-on: macOS-latest
   #   needs: build
   #   steps:
