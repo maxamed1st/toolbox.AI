@@ -39,5 +39,9 @@ jobs:
         run: npm install
       - name: Build with Next.js
         run: npm run build
+      - name: stage build folder
+        run: git add -f out
+      - name: commit build folder
+        run: git commit -m "build and deploy"
       - name: deploy to gh pages
         run: git subtree push --prefix out origin ghpages
